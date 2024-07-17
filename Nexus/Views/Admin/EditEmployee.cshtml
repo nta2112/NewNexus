@@ -1,44 +1,41 @@
 ﻿
+@model Nexus.Models.Employee
+
 @{
     Layout = "AdminSideBar";
 }
-@* <link rel="stylesheet" href="~/css/table.css" asp-append-version="true" />
+
+<link rel="stylesheet" href="~/css/table.css" asp-append-version="true" />
 <link rel="stylesheet" href="~/css/CreateEmployee.css" asp-append-version="true" />
 
-<div class="row">
+ <div class="row">
     <div class="col-md-4">
-        <form>
+        <form asp-action="Edit">
             <div class="text-danger"></div>
             <div class="form-group">
                 <label class="control-label">Name</label>
-                <input class="form-control" />
-                <span class="text-danger"></span>
+                <input asp-for="Name" class="form-control" />
+                <span class="text-danger" asp-validation-for="Name"></span>
             </div>
             <div class="form-group">
                 <label class="control-label">Email</label>
-                <input class="form-control" />
-                <span class="text-danger"></span>
+                <input asp-for="Email" class="form-control" />
+                <span class="text-danger" asp-validation-for="Email"></span>
             </div>
             <div class="form-group">
                 <label class="control-label">Password</label>
-                <input class="form-control" />
-                <span class="text-danger"></span>
+                <input asp-for="Password" class="form-control" />
+                <span class="text-danger" asp-validation-for="Password"></span>
             </div>
             <div class="form-group">
                 <label class="control-label">Role</label>
-                <select name="cars" id="cars">
-                    <option value="volvo">Volvo</option>
-                    
-                </select>
-                <span class="text-danger"></span>
+                <select asp-for="RoleId" class="form-control" asp-items="ViewBag.RoleId"></select>
+                <span class="text-danger" asp-validation-for="RoleId"></span>
             </div>
             <div class="form-group">
                 <label class="control-label">Shop address</label>
-                <select name="cars" id="cars">
-                    <option value="volvo">Volvo</option>
-                    
-                </select>
-                <span class="text-danger"></span>
+                <select asp-for="ShopId" class="form-control" asp-items="ViewBag.ShopId"></select>
+                <span class="text-danger" asp-validation-for="ShopId"></span>
             </div>
             <br />
             <div class="form-group">
@@ -46,4 +43,7 @@
             </div>
         </form>
     </div>
-</div> *@
+</div>
+
+
+
