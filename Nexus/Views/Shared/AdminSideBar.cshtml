@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Admin Dashboard</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Box-icon -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- CSS -->
+	<link rel="stylesheet" href="~/css/sidebar.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/adminNav.css" asp-append-version="true" />
+
+	<!-- font-awesome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+	<!-- SIDEBAR -->
+	<section id="sidebar">
+		<a class="brand">
+			<i class="fa-regular fa-user io"></i>
+			<span class="text">Admin</span>
+		</a>
+		<ul class="side-menu top">
+			<li class="active">
+				<a onclick="package();">
+
+					<span class="text">Service package</span>
+				</a>
+			</li>
+			<li>
+				<a onclick="product();">
+
+					<span class="text">Product</span>
+				</a>
+			</li>
+			<li>
+				<a onclick="employee();" asp-area="" asp-controller="Admin" asp-action="TbEmployee">
+
+					<span class="text">Employee</span>
+				</a>
+			</li>
+			<li>
+				<a onclick="shop();">
+
+					<span class="text">Retail Shop</span>
+				</a>
+			</li>
+			<li>
+				<a onclick="vendor();">
+
+					<span class="text">Vendor</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="side-menu">
+
+			<li>
+				<a class="logout">
+					<i class='bx bxs-log-out-circle'></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+
+
+	<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			<i class='bx bx-menu'></i>
+			<a href="#" class="nav-link">Categories</a>
+			<form action="#">
+				<div class="form-input">
+					<input type="search" placeholder="Search...">
+					<button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
+				</div>
+			</form>
+			<span>Name</span>
+
+		</nav>
+		<!-- NAVBAR -->
+		<!-- MAIN -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<ul class="breadcrumb">
+						<li>
+							<a href="#">Dashboard</a>
+						</li>
+						<li><i class='bx bx-chevron-right'></i></li>
+						<li>
+							<p id="myText"></p>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			@RenderBody()
+		</main>
+		<!-- MAIN -->
+	</section>
+	<!-- CONTENT -->
+	<!-- SIDEBAR -->
+	<script src="~/js/script.js"></script>
+</body>
+</html>

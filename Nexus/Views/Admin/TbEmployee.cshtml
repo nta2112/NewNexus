@@ -1,0 +1,63 @@
+﻿
+@model List<Employee>
+<!-- CONTENT -->
+<link rel="stylesheet" href="~/css/table.css" asp-append-version="true" />
+@{
+    Layout = "AdminSideBar";
+}
+
+
+<div class="table-data">
+    <div class="order">
+        <div class="head">
+            <h3>Recent Orders</h3>
+            <p>
+                <a asp-action="Create" class="create_btn">Create New</a>
+            </p>
+
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>User name</th>
+                    <th>Email</th>
+                    @* <th>Password</th>
+                    <th>Role</th>
+                    <th>Retail Shop</th> *@
+                    <th>Action</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @*  <tr>
+                <td>1</td>
+                <td>
+                <p>John Doe</p>
+                </td>
+                <td>mail@gmail.com</td>
+                <td>1</td>
+                <td>Admin</td>
+                <td>Shop ID 1</td>
+                <td>
+                <a asp-action="Detail" asp-route-id="" class="btn btn-success">Update</a>
+                <a asp-action="Remove" asp-route-id="" class="btn btn-danger" onclick="return confirm('Do you want to delete this employee?')">Remove</a>
+                </td>
+                </tr> *@
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.EmployeeId</td>
+                        <td>@item.Name</td>
+                        <td>@item.Email</td>
+                        <td>
+                            <a class="edit_btn" asp-area="" asp-controller="Admin" asp-action="EditEmployee">Edit</a>
+                            <a class="del_btn" onclick="return confirm('Do you want to delete this employee?')">Remove</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="~/js/script.js"></script>
