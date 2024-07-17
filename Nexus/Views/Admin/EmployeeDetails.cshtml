@@ -1,0 +1,57 @@
+﻿@model Nexus.Models.Employee
+
+@{
+    Layout = "AdminSideBar";
+}
+ <link rel="stylesheet" href="~/css/employeeDetail.css" /> 
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+<div class="detail">
+    <h2>Employee Details</h2>
+    <div>
+        <h4>Employee</h4>
+        <dl class="row">
+            <dt class="col-sm-2">
+                Id
+            </dt>
+            <dd class="col-sm-10">
+                @Model.EmployeeId
+            </dd>
+            <dt class="col-sm-2">
+                Name
+            </dt>
+            <dd class="col-sm-10">
+                @Model.Name
+            </dd>
+            <dt class="col-sm-2">
+                Email
+            </dt>
+            <dd class="col-sm-10">
+                @Model.Email
+            </dd>
+            <dt class="col-sm-2">
+                Password
+            </dt>
+            <dd class="col-sm-10">
+                @Model.Password
+            </dd>
+            <dt class="col-sm-2">
+                Role
+            </dt>
+            <dd class="col-sm-10">
+                @Model.Role.RoleName
+            </dd>
+            <dt class="col-sm-2">
+                Shop address
+            </dt>
+            <dd class="col-sm-10">
+                @Model.Shop.Address
+            </dd>
+        </dl>
+        <div>
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</div>
+
+
