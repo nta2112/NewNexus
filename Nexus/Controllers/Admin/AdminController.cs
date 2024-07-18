@@ -40,37 +40,6 @@ namespace Nexus.Controllers.Admin
 
         public async Task<IActionResult> EditEmployee(int? id)
         {
-
-            //var employee = await _context.Employees
-            //    .Include(e => e.Role)
-            //    .Include(e => e.Shop)
-            //    .FirstOrDefaultAsync(m => m.EmployeeId == id);
-            //if (employee == null)
-            //    {
-            //        return NotFound();
-            //    }
-
-            //ViewData["RoleId"] = new SelectList(_context.Roles, "RoleId", "RoleName", employee.RoleId);
-            //ViewData["ShopId"] = new SelectList(_context.RetailShops, "ShopId", "ShopAddress", employee.ShopId);
-
-
-
-            //if (id == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //var employee = _context.Employees
-            //    .FirstOrDefault(m => m.EmployeeId == id);
-            //if (employee == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //ViewBag.RoleId = new SelectList(_context.Roles, "RoleId", "RoleName", employee.RoleId);
-            //ViewBag.ShopId = new SelectList(_context.RetailShops, "ShopId", "ShopName", employee.ShopId); 
-
-
             if (id == null)
             {
                 return NotFound();
@@ -87,6 +56,163 @@ namespace Nexus.Controllers.Admin
             ViewBag.ShopId = new SelectList(_context.RetailShops, "ShopId", "Address", employee.ShopId);
 
             return View(employee);           
+        }
+
+        //[HttpPost]
+
+        //public IActionResult EditEmployee(int id, [Bind("EmployeeId,Name,Email,Password,RoleId,ShopId")] Employee employee)
+        //{
+
+        //    if (ModelState.IsValid)
+        //    {
+
+        //            _context.Update(employee);
+        //            _context.SaveChanges();
+
+
+        //        return RedirectToAction(nameof(Index));
+        //    }
+
+        //    ViewBag.RoleId = new SelectList(_context.Roles, "RoleId", "RoleName", employee.RoleId);
+        //    ViewBag.ShopId = new SelectList(_context.RetailShops, "ShopId", "Address", employee.ShopId);
+
+        //    return View(employee);
+
+        //}
+
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> EditEmployee(int id, [Bind("EmployeeId,Name,Email,Password,RoleId,ShopId")] Employee employee)
+        //{
+        //if (id != employee.EmployeeId)
+        //{
+        //    return NotFound();
+        //}
+
+        //if (ModelState.IsValid)
+        //{
+        //    try
+        //    {
+        //        _context.Update(employee);
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!_context.Employees.Any(e => e.EmployeeId == id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
+        //    return RedirectToAction(nameof(TbEmployee));
+        //}
+
+        //ViewBag.RoleId = new SelectList(_context.Roles, "RoleId", "RoleName", employee.RoleId);
+        //ViewBag.ShopId = new SelectList(_context.RetailShops, "ShopId", "Address", employee.ShopId);
+
+
+        //if (ModelState.IsValid)
+        //{
+        //    _context.Update(employee);
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
+        //ViewBag.RoleId = new SelectList(_context.Roles, "RoleId", "RoleName", employee.RoleId);
+        //ViewBag.ShopId = new SelectList(_context.RetailShops, "ShopId", "Address", employee.ShopId);
+
+
+        //if (id != employee.EmployeeId)
+        //{
+        //    return NotFound();
+        //}
+
+        //if (ModelState.IsValid)
+        //{
+
+        //        _context.Update(employee);
+        //        await _context.SaveChangesAsync();
+
+
+        //    return RedirectToAction(nameof(Index));
+        //}
+
+        //ViewBag.RoleId = new SelectList(_context.Roles, "RoleId", "RoleName", employee.RoleId);
+        //ViewBag.ShopId = new SelectList(_context.RetailShops, "ShopId", "Address", employee.ShopId);
+
+        //if (id != employee.EmployeeId)
+        //{
+        //    return NotFound();
+        //}
+
+        //if (ModelState.IsValid)
+        //{
+        //    try
+        //    {
+        //        _context.Update(employee);
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!_context.Employees.Any(e => e.EmployeeId == employee.EmployeeId))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
+        //    return RedirectToAction(nameof(TbEmployee));
+        //}
+
+        //ViewBag.RoleId = new SelectList(_context.Roles, "RoleId", "RoleName", employee.RoleId);
+        //ViewBag.ShopId = new SelectList(_context.RetailShops, "ShopId", "Address", employee.ShopId);
+
+
+
+        //    return View(employee);
+        //}
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditEmployee(int id, [Bind("EmployeeId,Name,Email,Password,RoleId,ShopId")] Employee employee)
+        {
+            if (id != employee.EmployeeId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(employee);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!_context.Employees.Any(e => e.EmployeeId == employee.EmployeeId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+
+            ViewBag.RoleId = new SelectList(_context.Roles, "RoleId", "RoleName", employee.RoleId);
+            ViewBag.ShopId = new SelectList(_context.RetailShops, "ShopId", "Address", employee.ShopId);
+
+            return View(employee);
         }
 
 
