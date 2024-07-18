@@ -40,21 +40,53 @@ namespace Nexus.Controllers.Admin
 
         public async Task<IActionResult> EditEmployee(int? id)
         {
-            
-            var employee = await _context.Employees
-                .Include(e => e.Role)
-                .Include(e => e.Shop)
-                .FirstOrDefaultAsync(m => m.EmployeeId == id);
-            if (employee == null)
-                {
-                    return NotFound();
-                }
 
-            ViewData["RoleId"] = new SelectList(_context.Roles, "RoleId", "RoleName", employee.RoleId);
-            ViewData["ShopId"] = new SelectList(_context.RetailShops, "ShopId", "ShopAddress", employee.ShopId);
+            //var employee = await _context.Employees
+            //    .Include(e => e.Role)
+            //    .Include(e => e.Shop)
+            //    .FirstOrDefaultAsync(m => m.EmployeeId == id);
+            //if (employee == null)
+            //    {
+            //        return NotFound();
+            //    }
+
+            //ViewData["RoleId"] = new SelectList(_context.Roles, "RoleId", "RoleName", employee.RoleId);
+            //ViewData["ShopId"] = new SelectList(_context.RetailShops, "ShopId", "ShopAddress", employee.ShopId);
+
+
+
+            //if (id == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //var employee = _context.Employees
+            //    .FirstOrDefault(m => m.EmployeeId == id);
+            //if (employee == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //ViewBag.RoleId = new SelectList(_context.Roles, "RoleId", "RoleName", employee.RoleId);
+            //ViewBag.ShopId = new SelectList(_context.RetailShops, "ShopId", "ShopName", employee.ShopId); 
+
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var employee = _context.Employees
+                .FirstOrDefault(m => m.EmployeeId == id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.RoleId = new SelectList(_context.Roles, "RoleId", "RoleName", employee.RoleId);
+            ViewBag.ShopId = new SelectList(_context.RetailShops, "ShopId", "Address", employee.ShopId);
 
             return View(employee);           
-
         }
 
 
