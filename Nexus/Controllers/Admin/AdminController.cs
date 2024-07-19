@@ -58,163 +58,36 @@ namespace Nexus.Controllers.Admin
             return View(employee);           
         }
 
-        //[HttpPost]
-
-        //public IActionResult EditEmployee(int id, [Bind("EmployeeId,Name,Email,Password,RoleId,ShopId")] Employee employee)
-        //{
-
-        //    if (ModelState.IsValid)
-        //    {
-
-        //            _context.Update(employee);
-        //            _context.SaveChanges();
-
-
-        //        return RedirectToAction(nameof(Index));
-        //    }
-
-        //    ViewBag.RoleId = new SelectList(_context.Roles, "RoleId", "RoleName", employee.RoleId);
-        //    ViewBag.ShopId = new SelectList(_context.RetailShops, "ShopId", "Address", employee.ShopId);
-
-        //    return View(employee);
-
-        //}
-
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> EditEmployee(int id, [Bind("EmployeeId,Name,Email,Password,RoleId,ShopId")] Employee employee)
-        //{
-        //if (id != employee.EmployeeId)
-        //{
-        //    return NotFound();
-        //}
-
-        //if (ModelState.IsValid)
-        //{
-        //    try
-        //    {
-        //        _context.Update(employee);
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!_context.Employees.Any(e => e.EmployeeId == id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-        //    return RedirectToAction(nameof(TbEmployee));
-        //}
-
-        //ViewBag.RoleId = new SelectList(_context.Roles, "RoleId", "RoleName", employee.RoleId);
-        //ViewBag.ShopId = new SelectList(_context.RetailShops, "ShopId", "Address", employee.ShopId);
-
-
-        //if (ModelState.IsValid)
-        //{
-        //    _context.Update(employee);
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
-        //ViewBag.RoleId = new SelectList(_context.Roles, "RoleId", "RoleName", employee.RoleId);
-        //ViewBag.ShopId = new SelectList(_context.RetailShops, "ShopId", "Address", employee.ShopId);
-
-
-        //if (id != employee.EmployeeId)
-        //{
-        //    return NotFound();
-        //}
-
-        //if (ModelState.IsValid)
-        //{
-
-        //        _context.Update(employee);
-        //        await _context.SaveChangesAsync();
-
-
-        //    return RedirectToAction(nameof(Index));
-        //}
-
-        //ViewBag.RoleId = new SelectList(_context.Roles, "RoleId", "RoleName", employee.RoleId);
-        //ViewBag.ShopId = new SelectList(_context.RetailShops, "ShopId", "Address", employee.ShopId);
-
-        //if (id != employee.EmployeeId)
-        //{
-        //    return NotFound();
-        //}
-
-        //if (ModelState.IsValid)
-        //{
-        //    try
-        //    {
-        //        _context.Update(employee);
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!_context.Employees.Any(e => e.EmployeeId == employee.EmployeeId))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-        //    return RedirectToAction(nameof(TbEmployee));
-        //}
-
-        //ViewBag.RoleId = new SelectList(_context.Roles, "RoleId", "RoleName", employee.RoleId);
-        //ViewBag.ShopId = new SelectList(_context.RetailShops, "ShopId", "Address", employee.ShopId);
-
-
-
-        //    return View(employee);
-        //}
-
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditEmployee(int id, [Bind("EmployeeId,Name,Email,Password,RoleId,ShopId")] Employee employee)
+        public ActionResult EditEmployee(int id, IFormCollection collection)
         {
-            if (id != employee.EmployeeId)
+            try
             {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
+                using (var db = new NexusContext())
                 {
-                    _context.Update(employee);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!_context.Employees.Any(e => e.EmployeeId == employee.EmployeeId))
+                    var employee = db.Employees.FirstOrDefault(e => e.EmployeeId == id);
+                    if (employee == null)
                     {
                         return NotFound();
                     }
-                    else
-                    {
-                        throw;
-                    }
+
+                    employee.Name = collection["Name"];
+                    employee.Email = collection["Email"];
+                    employee.Password = collection["Password"];
+                    employee.RoleId = Convert.ToInt32(collection["RoleId"]);
+                    employee.ShopId = Convert.ToInt32(collection["ShopId"]);
+
+                    db.SaveChanges();
                 }
                 return RedirectToAction(nameof(Index));
             }
-
-            ViewBag.RoleId = new SelectList(_context.Roles, "RoleId", "RoleName", employee.RoleId);
-            ViewBag.ShopId = new SelectList(_context.RetailShops, "ShopId", "Address", employee.ShopId);
-
-            return View(employee);
+            catch
+            {
+                return View();
+            }
         }
-
 
     }
 }
