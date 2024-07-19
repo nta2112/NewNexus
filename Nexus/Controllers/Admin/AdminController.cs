@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Nexus.Models;
 
-
 namespace Nexus.Controllers.Admin
 {
     public class AdminController : Controller
