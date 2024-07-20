@@ -16,7 +16,140 @@ namespace Nexus.Controllers.Admin
         {
             return View();
         }
-		public IActionResult TbEmployee()
+
+        public IActionResult TbShop()
+        {
+			var shop = _context.RetailShops.ToList();
+			return View(shop);
+        }
+
+		public ActionResult EditShop(int id)
+		{
+			Models.RetailShop s = new Models.RetailShop();
+			using (var db = new Models.NexusContext())
+			{
+				s = db.RetailShops.Where(P => P.ShopId == id).First();
+			}
+
+			return View(s);
+		}
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditShop(int id, IFormCollection collection)
+        {
+            try
+            {
+                using (var db = new Models.NexusContext())
+                {
+                    var Friend = db.RetailShops.Where(P => P.ShopId == id).First();
+                    Friend.Address = collection["Address"];
+                    db.SaveChanges();
+                }
+                return RedirectToAction(nameof(TbShop));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        public ActionResult AddShop()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddShop(IFormCollection collection)
+        {
+            try
+            {
+                using (var db = new Models.NexusContext())
+                {
+                    db.RetailShops.Add(new Models.RetailShop
+                    {
+                        Address = collection["Address"]
+                    });
+                    
+                    db.SaveChanges();
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+        public IActionResult TbVendor()
+		{
+			var vendor = _context.Vendors.ToList();
+			return View(vendor);
+		}
+
+        public ActionResult AddVendor()
+        {
+            return View();
+        }
+
+        public ActionResult EditVendor(int id)
+        {
+            Models.Vendor v = new Models.Vendor();
+            using (var db = new Models.NexusContext())
+            {
+                v = db.Vendors.Where(P => P.VendorId == id).First();
+            }
+
+            return View(v);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditVendor(int id, IFormCollection collection)
+        {
+            try
+            {
+                using (var db = new Models.NexusContext())
+                {
+                    var Vendor = db.Vendors.Where(P => P.VendorId == id).First();
+                    Vendor.Email = collection["Email"];
+                    db.SaveChanges();
+                }
+                return RedirectToAction(nameof(TbShop));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddVendor(IFormCollection collection)
+        {
+            try
+            {
+                using (var db = new Models.NexusContext())
+                {
+                    db.Vendors.Add(new Models.Vendor
+                    {
+                        Email = collection["Email"]
+                    });
+
+                    db.SaveChanges();
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        public IActionResult TbEmployee()
 		{
 			var employees = _context.Employees.ToList();
 
@@ -119,21 +252,94 @@ namespace Nexus.Controllers.Admin
         //}
 
 
+        //[HttpPost]  //Why ModelState don't work in this pj?
+        //[ValidateAntiForgeryToken]
+        //public ActionResult AddEmployee(IFormCollection collection, Employee model)
+
+        //{
+        //    try
+        //    {
+        //        using (var db = new NexusContext())
+        //        {
+        //            var employee = new Employee
+        //            {
+        //                Name = collection["Name"],
+        //                Email = collection["Email"],
+        //                Password = collection["Password"],
+        //                RoleId = Convert.ToInt32(collection["RoleId"]),
+        //                ShopId = Convert.ToInt32(collection["ShopId"])
+        //            };
+        //            if (ModelState.IsValid)
+        //            {
+        //                db.Employees.Add(employee);
+        //                db.SaveChanges();
+        //            }
+
+
+        //        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch
+        //    {
+        //        ViewBag.RoleId = new SelectList(_context.Roles, "RoleId", "RoleName");
+        //        ViewBag.ShopId = new SelectList(_context.RetailShops, "ShopId", "Address");
+        //        return View();
+        //    }
+
+        //}
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddEmployee(IFormCollection collection)
         {
             try
             {
+                // Kiểm tra các trường bắt buộc
+                var name = collection["Name"];
+                var email = collection["Email"];
+                var password = collection["Password"];
+                var roleId = collection["RoleId"];
+                var shopId = collection["ShopId"];
+
+                // Kiểm tra từng trường một và thêm lỗi vào ViewBag nếu cần
+                if (string.IsNullOrEmpty(name))
+                {
+                    ViewBag.NameError = "Name is required.";
+                }
+                if (string.IsNullOrEmpty(email))
+                {
+                    ViewBag.EmailError = "Email is required.";
+                }
+                if (string.IsNullOrEmpty(password))
+                {
+                    ViewBag.PasswordError = "Password is required.";
+                }
+                if (string.IsNullOrEmpty(roleId) || !int.TryParse(roleId, out _))
+                {
+                    ViewBag.RoleIdError = "Role is required.";
+                }
+                if (string.IsNullOrEmpty(shopId) || !int.TryParse(shopId, out _))
+                {
+                    ViewBag.ShopIdError = "Shop address is required.";
+                }
+
+                if (ViewBag.NameError != null || ViewBag.EmailError != null || ViewBag.PasswordError != null || ViewBag.RoleIdError != null || ViewBag.ShopIdError != null)
+                {
+                    ViewBag.RoleId = new SelectList(_context.Roles, "RoleId", "RoleName");
+                    ViewBag.ShopId = new SelectList(_context.RetailShops, "ShopId", "Address");
+                    return View();
+                }
+
                 using (var db = new NexusContext())
                 {
                     var employee = new Employee
                     {
-                        Name = collection["Name"],
-                        Email = collection["Email"],
-                        Password = collection["Password"],
-                        RoleId = Convert.ToInt32(collection["RoleId"]),
-                        ShopId = Convert.ToInt32(collection["ShopId"])
+                        Name = name,
+                        Email = email,
+                        Password = password,
+                        RoleId = Convert.ToInt32(roleId),
+                        ShopId = Convert.ToInt32(shopId)
                     };
 
                     db.Employees.Add(employee);
@@ -148,5 +354,6 @@ namespace Nexus.Controllers.Admin
                 return View();
             }
         }
+
     }
 }

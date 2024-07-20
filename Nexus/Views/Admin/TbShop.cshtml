@@ -1,0 +1,40 @@
+﻿@model List<RetailShop>
+<!-- CONTENT -->
+<link rel="stylesheet" href="~/css/table.css" asp-append-version="true" />
+@{
+    Layout = "AdminSideBar";
+}
+
+<div class="table-data">
+    <div class="order">
+        <div class="head">
+            <h3>Recent Orders</h3>
+            <p>
+                <a asp-controller="Admin" asp-action="AddShop" class="create_btn">Create New</a>
+            </p>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Address</th>
+                    <th>Action</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.ShopId</td>
+                        <td>@item.Address</td>
+                        <td>
+                            <a class="edit_btn" asp-controller="Admin" asp-action="EditShop" asp-route-id="@item.ShopId">Edit</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="~/js/script.js"></script>
