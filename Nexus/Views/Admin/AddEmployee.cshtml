@@ -1,0 +1,92 @@
+﻿@* @model Nexus.Models.Employee
+
+@{
+    Layout = "AdminSideBar";
+}
+
+<link rel="stylesheet" href="~/css/table.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/CreateEmployee.css" asp-append-version="true" />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddEmployee" asp-controller="Admin">
+            <div class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Name</label>
+                <input asp-for="Name" class="form-control" />
+                <span class="text-danger" asp-validation-for="Name"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Email</label>
+                <input asp-for="Email" class="form-control" />
+                <span class="text-danger" asp-validation-for="Email"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Password</label>
+                <input asp-for="Password" type="password" class="form-control" />
+                <span class="text-danger" asp-validation-for="Password"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Role</label>
+                <select asp-for="RoleId" class="form-control" asp-items="ViewBag.RoleId"></select>
+                <span class="text-danger" asp-validation-for="RoleId"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Shop address</label>
+                <select asp-for="ShopId" class="form-control" asp-items="ViewBag.ShopId"></select>
+                <span class="text-danger" asp-validation-for="ShopId"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div> *@
+
+@model Nexus.Models.Employee
+
+@{
+    Layout = "AdminSideBar";
+}
+
+<link rel="stylesheet" href="~/css/table.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/CreateEmployee.css" asp-append-version="true" />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddEmployee" asp-controller="Admin" method="post">
+            <div class="form-group">
+                <label for="Name" class="control-label">Name</label>
+                <input name="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="Email" class="control-label">Email</label>
+                <input name="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="Password" class="control-label">Password</label>
+                <input name="Password" class="form-control" type="password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="RoleId" class="control-label">Role</label>
+                <select name="RoleId" class="form-control" asp-items="ViewBag.RoleId"></select>
+                <span asp-validation-for="RoleId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="ShopId" class="control-label">Shop address</label>
+                <select name="ShopId" class="form-control" asp-items="ViewBag.ShopId"></select>
+                <span asp-validation-for="ShopId" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
