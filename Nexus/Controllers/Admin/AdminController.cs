@@ -355,5 +355,155 @@ namespace Nexus.Controllers.Admin
             }
         }
 
+
+
+
+        public IActionResult TbPac()
+        {
+            var p = _context.ServicePackages.ToList();
+
+            return View(p);
+        }
+
+        public IActionResult PacDetails(int id)
+        {
+            var p = _context.ServicePackages
+                                   .Include(e => e.ConnectionType)
+                                   .FirstOrDefault(e => e.PackageId == id);
+            if (p == null)
+            {
+                return NotFound();
+            }
+
+            return View(p);
+        }
+
+        public async Task<IActionResult> EditPac(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var p = _context.ServicePackages
+                .FirstOrDefault(m => m.PackageId == id);
+            if (p == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.ConnectionTypeId = new SelectList(_context.ConnectionTypes, "Id", "Name", p.ConnectionTypeId);
+
+            return View(p);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPac(int id, IFormCollection collection)
+        {
+            try
+            {
+                using (var db = new NexusContext())
+                {
+                    var p = db.ServicePackages.FirstOrDefault(e => e.PackageId == id);
+                    if (p == null)
+                    {
+                        return NotFound();
+                    }
+
+                    p.Name = collection["Name"];
+                    p.Description = collection["Description"];
+                    p.Price = Convert.ToDecimal(collection["Price"]);
+                    p.ConnectionTypeId = string.IsNullOrEmpty(collection["ConnectionTypeId"])
+                        ? (int?)null
+                        : Convert.ToInt32(collection["ConnectionTypeId"]);
+                    p.status = collection["status"] == "true"; 
+
+                    db.SaveChanges();
+                }
+                return RedirectToAction(nameof(Index)); 
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        public IActionResult AddPac(int? id)
+        {
+            ViewBag.ConnectionTypeId = new SelectList(_context.ConnectionTypes, "Id", "Name");
+            return View();
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddPac(IFormCollection collection)
+        {
+            try
+            {
+                // Kiểm tra các trường bắt buộc
+                var name = collection["Name"];
+                var description = collection["Description"];
+                var price = collection["Price"];
+                var connectionTypeId = collection["ConnectionTypeId"];
+                var status = collection["status"];
+
+                // Kiểm tra từng trường một và thêm lỗi vào ViewBag nếu cần
+                if (string.IsNullOrEmpty(name))
+                {
+                    ViewBag.NameError = "Name is required.";
+                }
+                if (string.IsNullOrEmpty(description))
+                {
+                    ViewBag.DescriptionError = "Description is required.";
+                }
+                if (string.IsNullOrEmpty(price) || !decimal.TryParse(price, out _))
+                {
+                    ViewBag.PriceError = "Valid Price is required.";
+                }
+                if (!string.IsNullOrEmpty(connectionTypeId) && !int.TryParse(connectionTypeId, out _))
+                {
+                    ViewBag.ConnectionTypeIdError = "Invalid Connection Type.";
+                }
+                if (string.IsNullOrEmpty(status) || !(status == "true" || status == "false"))
+                {
+                    ViewBag.StatusError = "Status is required.";
+                }
+
+                // Kiểm tra nếu có lỗi thì trả về view với lỗi
+                if (ViewBag.NameError != null || ViewBag.DescriptionError != null || ViewBag.PriceError != null || ViewBag.ConnectionTypeIdError != null || ViewBag.StatusError != null)
+                {
+                    ViewBag.ConnectionTypeId = new SelectList(_context.ConnectionTypes, "ConnectionTypeId", "TypeName");
+                    return View();
+                }
+
+                using (var db = new NexusContext())
+                {
+                    var servicePackage = new ServicePackage
+                    {
+                        Name = name,
+                        Description = description,
+                        Price = Convert.ToDecimal(price),
+                        ConnectionTypeId = string.IsNullOrEmpty(connectionTypeId) ? (int?)null : Convert.ToInt32(connectionTypeId),
+                        status = status == "true"
+                    };
+
+                    db.ServicePackages.Add(servicePackage);
+                    db.SaveChanges();
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                ViewBag.ConnectionTypeId = new SelectList(_context.ConnectionTypes, "ConnectionTypeId", "TypeName");
+                return View();
+            }
+        }
+
+
+
+
     }
 }

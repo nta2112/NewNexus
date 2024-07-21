@@ -9,6 +9,8 @@
 	<!-- CSS -->
 	<link rel="stylesheet" href="~/css/sidebar.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/css/adminNav.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/employeeDetail.css" />
+	<link rel="stylesheet" href="~/css/DetailPac.css" />
 
 	<!-- font-awesome -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -21,8 +23,8 @@
 			<span class="text">Admin</span>
 		</a>
 		<ul class="side-menu top">
-			<li class="active">
-				<a onclick="package();">
+			<li class="active"> 
+				<a onclick="package();" asp-controller="Admin" asp-action="TbPac">
 
 					<span class="text">Service package</span>
 				</a>
