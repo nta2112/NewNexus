@@ -503,7 +503,36 @@ namespace Nexus.Controllers.Admin
         }
 
 
+		[HttpGet]
+		public IActionResult SearchPac(string searchTerm)
+		{
+			if (string.IsNullOrEmpty(searchTerm))
+			{
+				ViewBag.ErrorMessage = "Please enter a search term.";
+				return View("SearchPac", new List<ServicePackage>());
+			}
+
+			//var results = _context.ServicePackages
+			//	.Where(p => p.Name.Contains(searchTerm))
+			//	.ToList();
+			var results = _context.ServicePackages
+			.Where(p => p.Name.Contains(searchTerm) ||
+						p.Description.Contains(searchTerm) ||
+						p.Price.ToString().Contains(searchTerm) ||
+						p.ConnectionType.Name.Contains(searchTerm))
+			.ToList();
 
 
-    }
+			return View("SearchPac", results);
+		}
+
+		// Phương thức POST để xử lý tìm kiếm từ form
+		[HttpPost]
+		public IActionResult SearchPac(IFormCollection collection)
+		{
+			var searchTerm = collection["searchTerm"];
+			return RedirectToAction("SearchPac", new { searchTerm = searchTerm });
+		}
+
+	}
 }

@@ -66,13 +66,21 @@
 		<nav>
 			<i class='bx bx-menu'></i>
 			<a href="#" class="nav-link">Categories</a>
-			<form action="#">
+			@* <form action="#">
 				<div class="form-input">
 					<input type="search" placeholder="Search...">
 					<button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
 				</div>
+			</form> *@
+			<form asp-controller="Admin" asp-action="SearchPac" method="post">
+				<div class="form-input">
+					<input type="search" placeholder="Search" aria-label="Search" name="searchTerm">
+					@* <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> *@
+					<button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
+				</div>
+				
 			</form>
-			<span>Name</span>
+			@* <span>Name</span> *@
 
 		</nav>
 		<!-- NAVBAR -->
