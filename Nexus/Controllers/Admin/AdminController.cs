@@ -141,7 +141,8 @@ namespace Nexus.Controllers.Admin
 
                     db.SaveChanges();
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(TbVendor));
+
             }
             catch
             {
@@ -213,7 +214,7 @@ namespace Nexus.Controllers.Admin
 
                     db.SaveChanges();
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(TbEmployee));
             }
             catch
             {
@@ -534,5 +535,29 @@ namespace Nexus.Controllers.Admin
 			return RedirectToAction("SearchPac", new { searchTerm = searchTerm });
 		}
 
-	}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DelPac(int id)
+        {
+            var package = _context.ServicePackages.Find(id);
+            if (package == null)
+            {
+                return NotFound();
+            }
+
+            if (!package.status)
+            {
+                TempData["Message"] = "Package is already inactive.";
+            }
+            else
+            {
+                package.status = false;
+                _context.SaveChanges();
+                TempData["Message"] = "Package has been set to inactive.";
+            }
+
+            return RedirectToAction(nameof(TbPac));
+        }
+
+    }
 }
