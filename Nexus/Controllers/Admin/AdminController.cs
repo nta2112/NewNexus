@@ -115,9 +115,10 @@ namespace Nexus.Controllers.Admin
                 {
                     var Vendor = db.Vendors.Where(P => P.VendorId == id).First();
                     Vendor.Email = collection["Email"];
+                    Vendor.Name = collection["Name"];
                     db.SaveChanges();
                 }
-                return RedirectToAction(nameof(TbShop));
+                return RedirectToAction(nameof(TbVendor));
             }
             catch
             {
@@ -136,8 +137,9 @@ namespace Nexus.Controllers.Admin
                 {
                     db.Vendors.Add(new Models.Vendor
                     {
-                        Email = collection["Email"]
-                    });
+                        Email = collection["Email"],
+                        Name = collection["Name"]
+                    });  
 
                     db.SaveChanges();
                 }
@@ -149,7 +151,7 @@ namespace Nexus.Controllers.Admin
                 return View();
             }
         }
-
+        
         public IActionResult TbEmployee()
 		{
 			var employees = _context.Employees.ToList();

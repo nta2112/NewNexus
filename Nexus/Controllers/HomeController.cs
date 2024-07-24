@@ -58,6 +58,10 @@ namespace Nexus.Controllers
                     case 1:
                         return RedirectToAction("Index", "Admin");
                     case 2: 
+                        return RedirectToAction("Index", "Accountant");
+                    case 3:
+                        return RedirectToAction("Index", "RetailEmployee");
+                    case 4:
                         return RedirectToAction("Index", "Technical");
                     default:
                         ModelState.AddModelError(string.Empty, "Invalid login attempt.");

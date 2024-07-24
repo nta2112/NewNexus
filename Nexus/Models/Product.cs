@@ -17,6 +17,8 @@ public partial class Product
 
     public int Quantity { get; set; }
 
+    public string img { get; set; }
+
     public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
 
     public virtual Vendor Vendor { get; set; } = null!;

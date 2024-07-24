@@ -1,0 +1,48 @@
+﻿@model List<Product>
+<!-- CONTENT -->
+<link rel="stylesheet" href="~/css/table.css" asp-append-version="true" />
+@{
+    Layout = "TechnicalSideBar";
+}
+
+<div class="table-data">
+    <div class="order">
+        <div class="head">
+            <h3>Product</h3>
+            <p>
+                <a asp-controller="Technical" asp-action="AddProduct" class="create_btn">Create New</a>
+            </p>
+
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>img</th>
+                    <th>Action</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.ProductId</td>
+                        <td>@item.Name</td>
+                        <td>@item.Price</td>
+                        <td>
+                            <img src="@item.img" alt="@item.Name" width="100" /> <!-- Hiển thị ảnh -->
+                        </td>
+                        <td>
+                            <a class="edit_btn" asp-controller="Admin" asp-action="EmployeeDetails" asp-route-id="@item.ProductId">Detail</a>
+                            <a class="edit_btn" asp-controller="Admin" asp-action="EditEmployee" asp-route-id="@item.ProductId">Edit</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="~/js/script.js"></script>

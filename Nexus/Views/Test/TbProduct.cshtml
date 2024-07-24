@@ -1,40 +1,43 @@
-﻿@model List<Vendor>
+﻿@model List<Product>
 <!-- CONTENT -->
 <link rel="stylesheet" href="~/css/table.css" asp-append-version="true" />
 @{
-    Layout = "AdminSideBar";
+    Layout = "TechnicalSideBar";
 }
 
 <div class="table-data">
     <div class="order">
         <div class="head">
-            <h3>Vendor</h3>
+            <h3>Product</h3>
             <p>
-                <a asp-controller="Admin" asp-action="AddVendor" class="create_btn">Create New</a>
+                <a asp-controller="Admin" asp-action="AddEmployee" class="create_btn">Create New</a>
             </p>
+
         </div>
         <table>
             <thead>
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
-                    <th>Email</th>
+                    <th>Price</th>
                     <th>Action</th>
+
                 </tr>
             </thead>
-            <tbody>
+             <tbody>
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>@item.VendorId</td>
+                        <td>@item.ProductId</td>
                         <td>@item.Name</td>
-                        <td>@item.Email</td>
+                        <td>@item.Price</td>
                         <td>
-                            <a class="edit_btn" asp-controller="Admin" asp-action="EditVendor" asp-route-id="@item.VendorId">Edit</a>
+                            <a class="edit_btn" asp-controller="Admin" asp-action="EmployeeDetails" asp-route-id="@item.EmployeeId">Detail</a>
+                            <a class="edit_btn" asp-controller="Admin" asp-action="EditEmployee" asp-route-id="@item.EmployeeId">Edit</a>
                         </td>
                     </tr>
                 }
-            </tbody>
+            </tbody> 
         </table>
     </div>
 </div>

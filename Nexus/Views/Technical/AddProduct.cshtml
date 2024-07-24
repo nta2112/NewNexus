@@ -1,0 +1,98 @@
+﻿@* @model Nexus.Models.Product
+
+@{
+    Layout = "TechnicalSideBar";
+}
+
+<link rel="stylesheet" href="~/css/table.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/CreateEmployee.css" asp-append-version="true" />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddProduct" asp-controller="Technical" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="Name" class="control-label">Name</label>
+                <input name="Name" class="form-control" />
+                <span class="text-danger">@ViewBag.NameError</span>
+            </div>
+            <div class="form-group">
+                <label for="Description" class="control-label">Description</label>
+                <textarea name="Description" class="form-control"></textarea>
+                <span class="text-danger">@ViewBag.DescriptionError</span>
+            </div>
+            <div class="form-group">
+                <label for="Price" class="control-label">Price</label>
+                <input name="Price" class="form-control" />
+                <span class="text-danger">@ViewBag.PriceError</span>
+            </div>
+            <div class="form-group">
+                <label for="VendorId" class="control-label">Vendor</label>
+                <select name="VendorId" class="form-control" asp-items="ViewBag.VendorId"></select>
+                <span class="text-danger">@ViewBag.VendorIdError</span>
+            </div>
+            <div class="form-group">
+                <label for="Quantity" class="control-label">Quantity</label>
+                <input name="Quantity" class="form-control" />
+                <span class="text-danger">@ViewBag.QuantityError</span>
+            </div>
+            <div class="form-group">
+                <label for="img" class="control-label">Upload Image</label>
+                <input type="file" name="img" class="form-control" />
+                <span class="text-danger">@ViewBag.ImageError</span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div> *@
+
+@model Nexus.Models.Product
+@{
+    Layout = "AdminSideBar";
+}
+<link rel="stylesheet" href="~/css/table.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/CreateEmployee.css" asp-append-version="true" />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddProduct" asp-controller="Technical" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="Name" class="control-label">Name</label>
+                <input name="Name" class="form-control" />
+                <span class="text-danger">@ViewBag.NameError</span>
+            </div>
+            <div class="form-group">
+                <label for="Description" class="control-label">Description</label>
+                <input name="Description" class="form-control" />
+                <span class="text-danger">@ViewBag.DescriptionError</span>
+            </div>
+            <div class="form-group">
+                <label for="Price" class="control-label">Price</label>
+                <input name="Price" class="form-control" type="number" step="0.01" />
+                <span class="text-danger">@ViewBag.PriceError</span>
+            </div>
+            <div class="form-group">
+                <label for="VendorId" class="control-label">Vendor</label>
+                <select name="VendorId" class="form-control" asp-items="ViewBag.VendorId"></select>
+                <span class="text-danger">@ViewBag.VendorIdError</span>
+            </div>
+            <div class="form-group">
+                <label for="Quantity" class="control-label">Quantity</label>
+                <input name="Quantity" class="form-control" type="number" />
+                <span class="text-danger">@ViewBag.QuantityError</span>
+            </div>
+            <div class="form-group">
+                <label for="img" class="control-label">Image</label>
+                <input name="img" class="form-control" type="file" />
+                <span class="text-danger">@ViewBag.ImageError</span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+

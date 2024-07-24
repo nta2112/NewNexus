@@ -9,5 +9,6 @@ public partial class Vendor
 
     public string Email { get; set; } = null!;
 
+    public string Name { get; set; }
     public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 }
