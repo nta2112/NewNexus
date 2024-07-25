@@ -1,0 +1,65 @@
+﻿@model Nexus.Models.Product
+
+@{
+    Layout = "TechnicalSideBar";
+}
+<link rel="stylesheet" href="~/css/table.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/CreateEmployee.css" asp-append-version="true" />
+
+<div class="row">
+    <div class="col-md-4">
+<form asp-action="EditProduct" asp-controller="Technical"  enctype="multipart/form-data">
+    <div class="product-details">
+        <div class="form-group">
+            <label for="ProductId">Product ID</label>
+            <p class="form-control-static">@Model.ProductId</p>
+            <input type="hidden" asp-for="ProductId" />
+        </div>
+        <div class="form-group">
+            <label for="Name">Name</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="Description">Description</label>
+            <input asp-for="Description" class="form-control" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="Price">Price</label>
+            <input asp-for="Price" class="form-control" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Role</label>
+            <select asp-for="VendorId" class="form-control" asp-items="ViewBag.VendorId"></select>
+            <span class="text-danger" asp-validation-for="VendorId"></span>
+        </div>
+        <div class="form-group">
+            <label for="Quantity">Quantity</label>
+            <input asp-for="Quantity" class="form-control" />
+            <span asp-validation-for="Quantity" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="img">Current Image</label>
+            @if (!string.IsNullOrEmpty(Model.img))
+            {
+                <div class="img-container">
+                    <img src="@Model.img" alt="Product Image" class="img-fluid" />
+                </div>
+                        <input type="hidden" name="CurrentImage" value="@Model.img" />
+            }
+        </div>
+         <div class="form-group">
+            <label for="img">Upload New Image</label>
+            <input type="file" asp-for="img" class="form-control" />
+            <span asp-validation-for="img" class="text-danger"></span>
+        </div> 
+    </div>
+
+    <input type="submit" value="Save" class="btn btn-primary" />
+    <a asp-controller="Admin" asp-action="Index" class="btn btn-secondary">Back to List</a>
+</form>
+
+    </div>
+</div>

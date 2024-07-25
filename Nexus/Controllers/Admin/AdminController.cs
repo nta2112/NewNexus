@@ -131,6 +131,24 @@ namespace Nexus.Controllers.Admin
         [ValidateAntiForgeryToken]
         public ActionResult AddVendor(IFormCollection collection)
         {
+            var name = collection["Name"];
+            var email = collection["Email"];
+            if (string.IsNullOrEmpty(name))
+            {
+                ViewBag.NameError = "Name is required.";
+            }
+
+            if (string.IsNullOrEmpty(email))
+            {
+                ViewBag.DescriptionError = "Email is required.";
+            }
+            if (!string.IsNullOrEmpty(ViewBag.NameError) ||
+                !string.IsNullOrEmpty(ViewBag.EmailError) )
+            {
+                ViewBag.VendorId = new SelectList(_context.Vendors, "VendorId", "Name");
+                return View();
+            }
+
             try
             {
                 using (var db = new Models.NexusContext())
@@ -255,57 +273,18 @@ namespace Nexus.Controllers.Admin
         //}
 
 
-        //[HttpPost]  //Why ModelState don't work in this pj?
-        //[ValidateAntiForgeryToken]
-        //public ActionResult AddEmployee(IFormCollection collection, Employee model)
-
-        //{
-        //    try
-        //    {
-        //        using (var db = new NexusContext())
-        //        {
-        //            var employee = new Employee
-        //            {
-        //                Name = collection["Name"],
-        //                Email = collection["Email"],
-        //                Password = collection["Password"],
-        //                RoleId = Convert.ToInt32(collection["RoleId"]),
-        //                ShopId = Convert.ToInt32(collection["ShopId"])
-        //            };
-        //            if (ModelState.IsValid)
-        //            {
-        //                db.Employees.Add(employee);
-        //                db.SaveChanges();
-        //            }
-
-
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        ViewBag.RoleId = new SelectList(_context.Roles, "RoleId", "RoleName");
-        //        ViewBag.ShopId = new SelectList(_context.RetailShops, "ShopId", "Address");
-        //        return View();
-        //    }
-
-        //}
-
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddEmployee(IFormCollection collection)
         {
             try
             {
-                // Kiểm tra các trường bắt buộc
                 var name = collection["Name"];
                 var email = collection["Email"];
                 var password = collection["Password"];
                 var roleId = collection["RoleId"];
                 var shopId = collection["ShopId"];
 
-                // Kiểm tra từng trường một và thêm lỗi vào ViewBag nếu cần
                 if (string.IsNullOrEmpty(name))
                 {
                     ViewBag.NameError = "Name is required.";
@@ -357,8 +336,6 @@ namespace Nexus.Controllers.Admin
                 return View();
             }
         }
-
-
 
 
         public IActionResult TbPac()
@@ -440,13 +417,78 @@ namespace Nexus.Controllers.Admin
         }
 
 
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult AddPac(IFormCollection collection)
+        //{
+        //    try
+        //    {
+        //        // Kiểm tra các trường bắt buộc
+        //        var name = collection["Name"];
+        //        var description = collection["Description"];
+        //        var price = collection["Price"];
+        //        var connectionTypeId = collection["ConnectionTypeId"];
+        //        var status = collection["status"];
+
+        //        // Kiểm tra từng trường một và thêm lỗi vào ViewBag nếu cần
+        //        if (string.IsNullOrEmpty(name))
+        //        {
+        //            ViewBag.NameError = "Name is required.";
+        //        }
+        //        if (string.IsNullOrEmpty(description))
+        //        {
+        //            ViewBag.DescriptionError = "Description is required.";
+        //        }
+        //        if (string.IsNullOrEmpty(price) || !decimal.TryParse(price, out _))
+        //        {
+        //            ViewBag.PriceError = "Valid Price is required.";
+        //        }
+        //        if (!string.IsNullOrEmpty(connectionTypeId) && !int.TryParse(connectionTypeId, out _))
+        //        {
+        //            ViewBag.ConnectionTypeIdError = "Invalid Connection Type.";
+        //        }
+        //        if (string.IsNullOrEmpty(status) || !(status == "true" || status == "false"))
+        //        {
+        //            ViewBag.StatusError = "Status is required.";
+        //        }
+
+        //        if (ViewBag.ViewBag.NameError != null || ViewBag.DescriptionError != null || ViewBag.PriceError != null || ViewBag.ConnectionTypeIdError != null || ViewBag.StatusError != null)
+        //        {
+        //            ViewBag.ConnectionTypeId = new SelectList(_context.ConnectionTypes, "ConnectionTypeId", "TypeName");
+        //            return View();
+        //        }
+
+        //        using (var db = new NexusContext())
+        //        {
+        //            var servicePackage = new ServicePackage
+        //            {
+        //                Name = name,
+        //                Description = description,
+        //                Price = Convert.ToDecimal(price),
+        //                ConnectionTypeId = string.IsNullOrEmpty(connectionTypeId) ? (int?)null : Convert.ToInt32(connectionTypeId),
+        //                status = status == "true"
+        //            };
+
+        //            db.ServicePackages.Add(servicePackage);
+        //            db.SaveChanges();
+        //        }
+        //        return RedirectToAction(nameof(TbPac));
+        //    }
+        //    catch
+        //    {
+        //        ViewBag.ConnectionTypeId = new SelectList(_context.ConnectionTypes, "ConnectionTypeId", "TypeName");
+        //        return View();
+        //    }
+        //}
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddPac(IFormCollection collection)
         {
             try
             {
-                // Kiểm tra các trường bắt buộc
+                // Lấy các giá trị từ form
                 var name = collection["Name"];
                 var description = collection["Description"];
                 var price = collection["Price"];
@@ -466,7 +508,7 @@ namespace Nexus.Controllers.Admin
                 {
                     ViewBag.PriceError = "Valid Price is required.";
                 }
-                if (!string.IsNullOrEmpty(connectionTypeId) && !int.TryParse(connectionTypeId, out _))
+                if (string.IsNullOrEmpty(connectionTypeId) || !int.TryParse(connectionTypeId, out _))
                 {
                     ViewBag.ConnectionTypeIdError = "Invalid Connection Type.";
                 }
@@ -475,13 +517,15 @@ namespace Nexus.Controllers.Admin
                     ViewBag.StatusError = "Status is required.";
                 }
 
-                // Kiểm tra nếu có lỗi thì trả về view với lỗi
+                // Kiểm tra có lỗi nào không
                 if (ViewBag.NameError != null || ViewBag.DescriptionError != null || ViewBag.PriceError != null || ViewBag.ConnectionTypeIdError != null || ViewBag.StatusError != null)
                 {
+                    // Khởi tạo lại danh sách chọn
                     ViewBag.ConnectionTypeId = new SelectList(_context.ConnectionTypes, "ConnectionTypeId", "TypeName");
                     return View();
                 }
 
+                // Tạo đối tượng ServicePackage và lưu vào cơ sở dữ liệu
                 using (var db = new NexusContext())
                 {
                     var servicePackage = new ServicePackage
@@ -489,24 +533,27 @@ namespace Nexus.Controllers.Admin
                         Name = name,
                         Description = description,
                         Price = Convert.ToDecimal(price),
-                        ConnectionTypeId = string.IsNullOrEmpty(connectionTypeId) ? (int?)null : Convert.ToInt32(connectionTypeId),
+                        ConnectionTypeId = Convert.ToInt32(connectionTypeId),
                         status = status == "true"
                     };
 
                     db.ServicePackages.Add(servicePackage);
                     db.SaveChanges();
                 }
-                return RedirectToAction(nameof(Index));
+
+                return RedirectToAction(nameof(TbPac));
             }
             catch
             {
-                ViewBag.ConnectionTypeId = new SelectList(_context.ConnectionTypes, "ConnectionTypeId", "TypeName");
-                return View();
+                //ViewBag.ConnectionTypeId = new SelectList(_context.ConnectionTypes, "ConnectionTypeId", "TypeName");
+                //return View();
+                return RedirectToAction(nameof(Index));
             }
         }
 
 
-		[HttpGet]
+
+        [HttpGet]
 		public IActionResult SearchPac(string searchTerm)
 		{
 			if (string.IsNullOrEmpty(searchTerm))

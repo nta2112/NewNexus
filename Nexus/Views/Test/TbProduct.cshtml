@@ -1,44 +1,39 @@
-﻿@model List<Product>
-<!-- CONTENT -->
-<link rel="stylesheet" href="~/css/table.css" asp-append-version="true" />
+﻿@model Nexus.Models.Product
+
 @{
     Layout = "TechnicalSideBar";
 }
 
-<div class="table-data">
-    <div class="order">
-        <div class="head">
-            <h3>Product</h3>
-            <p>
-                <a asp-controller="Admin" asp-action="AddEmployee" class="create_btn">Create New</a>
-            </p>
+<h2>Product Details</h2>
 
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="Name" class="control-label">Name</label>
+            <p class="form-control-static">@Model.Name</p>
         </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Action</th>
-
-                </tr>
-            </thead>
-             <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@item.ProductId</td>
-                        <td>@item.Name</td>
-                        <td>@item.Price</td>
-                        <td>
-                            <a class="edit_btn" asp-controller="Admin" asp-action="EmployeeDetails" asp-route-id="@item.EmployeeId">Detail</a>
-                            <a class="edit_btn" asp-controller="Admin" asp-action="EditEmployee" asp-route-id="@item.EmployeeId">Edit</a>
-                        </td>
-                    </tr>
-                }
-            </tbody> 
-        </table>
+        <div class="form-group">
+            <label for="Description" class="control-label">Description</label>
+            <p class="form-control-static">@Model.Description</p>
+        </div>
+        <div class="form-group">
+            <label for="Price" class="control-label">Price</label>
+            <p class="form-control-static">@Model.Price</p>
+        </div>
+        <div class="form-group">
+            <label for="Vendor" class="control-label">Vendor</label>
+            <p class="form-control-static">@Model.Vendor.Name</p>
+        </div>
+        <div class="form-group">
+            <label for="Quantity" class="control-label">Quantity</label>
+            <p class="form-control-static">@Model.Quantity</p>
+        </div>
+        <div class="form-group">
+            <label for="img" class="control-label">Image</label>
+            <img src="@Model.img" alt="Product Image" class="img-fluid" />
+        </div>
+        <div class="form-group">
+            <a href="@Url.Action("TbProduct", "Admin")" class="btn btn-primary">Back to List</a>
+        </div>
     </div>
 </div>
-<script src="~/js/script.js"></script>

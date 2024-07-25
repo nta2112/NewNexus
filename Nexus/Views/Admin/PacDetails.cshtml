@@ -3,58 +3,6 @@
 @{
     Layout = "AdminSideBar";
 }
-@* <link rel="stylesheet" href="~/css/employeeDetail.css" /> *@
-@* <link rel="stylesheet" href="~/css/DetailPac.css" />
- <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />  
-
-<div class="detail">
-    <h2>ServicePackage Details</h2>
-    <div>
-        <h4>ServicePackage<h4>
-        <dl class="row">
-            <dt class="col-sm-2">
-                Id
-            </dt>
-            <dd class="col-sm-10">
-                @Model.PackageId
-            </dd>
-            <dt class="col-sm-2">
-                Name
-            </dt>
-            <dd class="col-sm-10">
-                @Model.Name
-            </dd>
-            <dt class="col-sm-2">
-                Description
-            </dt>
-            <dd class="col-sm-10">
-                @Model.Description
-            </dd>
-            <dt class="col-sm-2">
-                Price
-            </dt>
-            <dd class="col-sm-10">
-                @Model.Price
-            </dd>
-             <dt class="col-sm-2">
-               Connection Type
-            </dt>
-            <dd class="col-sm-10">
-               @Model.ConnectionType.Name
-            </dd> 
-            <dt class="col-sm-2">
-                 Price
-            </dt>
-            <dd class="col-sm-10">
-                   @(Model.status ? "active" : "inactive")
-            </dd>
-
-        </dl>
-        <div>
-            <a asp-action="Index">Back to List</a>
-        </div>
-    </div>
-</div> *@
 
 <link rel="stylesheet" href="~/css/DetailPac.css" />
 

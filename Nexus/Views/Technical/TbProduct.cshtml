@@ -33,11 +33,11 @@
                         <td>@item.Name</td>
                         <td>@item.Price</td>
                         <td>
-                            <img src="@item.img" alt="@item.Name" width="100" /> <!-- Hiển thị ảnh -->
+                            <img src="@item.img" alt="@item.Name" width="100" /> 
                         </td>
                         <td>
-                            <a class="edit_btn" asp-controller="Admin" asp-action="EmployeeDetails" asp-route-id="@item.ProductId">Detail</a>
-                            <a class="edit_btn" asp-controller="Admin" asp-action="EditEmployee" asp-route-id="@item.ProductId">Edit</a>
+                            <a class="edit_btn" asp-controller="Technical" asp-action="ProductDetails" asp-route-id="@item.ProductId">Detail</a>
+                            <a class="edit_btn" asp-controller="Technical" asp-action="EditProduct" asp-route-id="@item.ProductId">Edit</a>
                         </td>
                     </tr>
                 }
