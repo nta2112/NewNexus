@@ -13,7 +13,7 @@
             <div class="form-group">
                 <label asp-for="Address" class="control-label"></label>
                 <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
+                <span asp-validation-for="Address" class="text-danger">@ViewBag.AddError</span>
             </div>
             <br />
             <div class="form-group">

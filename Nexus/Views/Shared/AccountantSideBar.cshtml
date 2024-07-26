@@ -1,5 +1,78 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Admin Dashboard</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Box-icon -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- CSS -->
+	<link rel="stylesheet" href="~/css/sidebar.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/adminNav.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/employeeDetail.css" />
+	<link rel="stylesheet" href="~/css/DetailPac.css" />
+
+	<!-- font-awesome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+	<!-- SIDEBAR -->
+	<section id="sidebar">
+		<a class="brand">
+			<i class="fa-regular fa-user io"></i>
+			<span class="text">Accountant Page</span>
+		</a>
+		<ul class="side-menu top">
+			<li class="active">
+				<a onclick="package();" asp-controller="Accountant" asp-action="">
+
+					<span class="text">Bill</span>
+				</a>
+			</li>
+			<li>
+				<a onclick="shop();" asp-area="" asp-controller="Accountant" asp-action="">
+
+					<span class="text">Payment</span>
+				</a>
+			</li>
+
+		</ul>
+		<ul class="side-menu">
+
+			<li>
+				<a class="logout">
+					<i class='bx bxs-log-out-circle'></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+
+
+	<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			<i class='bx bx-menu'></i>
+			<a href="#" class="nav-link">Categories</a>
+
+		</nav>
+		<!-- NAVBAR -->
+		<!-- MAIN -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<ul class="breadcrumb">
+					</ul>
+				</div>
+			</div>
+
+			@RenderBody()
+		</main>
+		<!-- MAIN -->
+	</section>
+	<!-- CONTENT -->
+	<!-- SIDEBAR -->
+	<script src="~/js/script.js"></script>
+</body>
+</html>
+

@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Test\TbProduct.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0-preview.6.24327.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -23,20 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <UpToDateCheckInput Remove="Views\Test\TbProduct.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Views\Test\TbProduct.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Views\Test\TbProduct.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="wwwroot\images\" />
-    <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
 
 </Project>

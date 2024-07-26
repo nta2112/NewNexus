@@ -64,6 +64,15 @@ namespace Nexus.Controllers.Admin
         [ValidateAntiForgeryToken]
         public ActionResult AddShop(IFormCollection collection)
         {
+            var add = collection["Address"];
+            if (string.IsNullOrEmpty(add))
+            {
+                ViewBag.AddError = "Address is required.";
+            }
+            if (!string.IsNullOrEmpty(ViewBag.AddError))
+            {
+                return View();
+            }
             try
             {
                 using (var db = new Models.NexusContext())
@@ -75,7 +84,7 @@ namespace Nexus.Controllers.Admin
                     
                     db.SaveChanges();
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(TbShop));
             }
             catch
             {
