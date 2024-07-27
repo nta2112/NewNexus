@@ -161,3 +161,19 @@ body {
         justify-content: center;
     }
 /* SIDEBAR */
+
+
+    #sidebar.hide .side-menu li form.logout {
+        width: calc(48px - (4px * 2));
+        transition: width .3s ease;
+    }
+
+    #sidebar .side-menu li form.logout button {
+        color: var(--red);
+        background:none;
+        border:none;
+    }
+
+    #sidebar .side-menu.top li form.logout button {
+        color: #3C91E6;
+    }
