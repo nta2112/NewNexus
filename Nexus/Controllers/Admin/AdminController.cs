@@ -411,7 +411,7 @@ namespace Nexus.Controllers.Admin
 
                     db.SaveChanges();
                 }
-                return RedirectToAction(nameof(Index)); 
+                return RedirectToAction(nameof(TbPac)); 
             }
             catch
             {
